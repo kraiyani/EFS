@@ -44,6 +44,8 @@ pip install -r requirements.txt
 
 ## Getting Started
 
+After installing requirements just run main.py to navigate through API
+
 Clone this repository to your local machine.
 
 Place the following CSV files in the same directory as your Jupyter Notebook or Python script:
