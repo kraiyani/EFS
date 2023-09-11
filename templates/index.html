@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EXUS - EFS</title>
+</head>
+<body>
+    <h1>Unsecured Personal Loan Default Prediction - Input Form</h1>
+    <form action="/predict" method="POST">
+        <label for="F_1">F_1:</label>
+        <input type="number" id="F_1" name="F_1" min="462" max="731" required><br><br>
+        
+        <label for="F_3">F_3:</label>
+        <input type="number" id="F_3" name="F_3" min="0" max="506" required><br><br>
+        
+        <label for="F_4">F_4:</label>
+        <input type="number" id="F_4" name="F_4" min="0" max="506" required><br><br>
+        
+        <label for="F_5">F_5:</label>
+        <input type="number" id="F_5" name="F_5" min="0" max="506" required><br><br>
+        
+        <label for="F_6">F_6:</label>
+        <input type="number" id="F_6" name="F_6" min="0" max="506" required><br><br>
+        
+        <label for="F_53">F_53:</label>
+        <input type="number" id="F_53" name="F_53" min="0" max="41" required><br><br>
+        
+        <label for="F_65">F_65:</label>
+        <input type="number" id="F_65" name="F_65" min="0" max="31" required><br><br>
+        
+        <label for="F_260">F_260:</label>
+        <input type="number" id="F_260" name="F_260" min="487" max="776" required><br><br>
+        
+        <label for="days_with_service">days_with_service:</label>
+        <input type="number" id="days_with_service" name="days_with_service" min="0" max="2164" required><br><br>
+
+        <input type="submit" value="Submit">        
+
+    </form>
+    <body>
+    <h1>Result</h1>
+    <p>The result is: {{ result }}</p>
+    <p>The probability is: {{ proba }}</p>
+</body>
+</body>
+</html>
