@@ -1,0 +1,17 @@
+kind: Ingress
+apiVersion: networking.k8s.io/v1beta1
+metadata:
+  name: EFS
+  namespace: EFS
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.frontend.passHostHeader: "true"
+spec:
+  rules:
+  - host: EFS.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: EFS
+          servicePort: main
