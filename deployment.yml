@@ -1,0 +1,111 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: EFS-db
+  namespace: EFS
+spec:
+  selector:
+    matchLabels:
+      service: EFS-db
+  template:
+    metadata:
+      labels:
+        service: EFS-db
+    spec:
+      containers:
+      - name: EFS-db
+        image: "postgres:12.0-alpine"
+        imagePullPolicy: Always
+        env:
+        - name: POSTGRES_DB
+          value: EFS_v1
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: EFS-secrets
+              key: dbpw
+        volumeMounts:
+        - name: EFS-db
+          mountPath: "/var/lib/postgresql/data"
+      volumes:
+      - name: EFS-db
+        hostPath:
+          path: "/cluster/EFS/db"
+          type: "DirectoryOrCreate"
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: EFS-db
+  namespace: EFS
+spec:
+  selector:
+    service: EFS-db
+  ports:
+  - name: main
+    protocol: TCP
+    port: 5432
+
+---
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: EFS
+  namespace: EFS
+spec:
+  selector:
+    matchLabels:
+      service: EFS
+  template:
+    metadata:
+      labels:
+        service: EFS
+    spec:
+      imagePullSecrets:
+      - name: EFS-secrets-registry
+      containers:
+      - name: EFS
+        image: "docker.EFS.com/EFS:production"
+        imagePullPolicy: Always
+        env:
+        - name: DB_HOST
+          value: EFS-db
+        - name: DB_PORT
+          value: "5432"
+        - name: DB_NAME
+          value: EFS_v1
+        - name: DB_USER
+          value: postgres
+        - name: DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: EFS-secrets
+              key: dbpw
+        volumeMounts:
+        - name: EFS-media
+          mountPath: "/app/media"
+      volumes:
+      - name: EFS-media
+        hostPath:
+          path: "/cluster/storage/EFS/artifacts"
+          type: "DirectoryOrCreate"
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: EFS
+  namespace: EFS
+spec:
+  selector:
+    service: EFS
+  ports:
+  - name: main
+    protocol: TCP
+    port: 8000
