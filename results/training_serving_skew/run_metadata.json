@@ -1,0 +1,86 @@
+{
+  "config": {
+    "seeds": [
+      11,
+      29,
+      47
+    ],
+    "sample_count": 4000,
+    "test_fraction": 0.25,
+    "tree_count": 160,
+    "max_depth": 8,
+    "min_leaf_count": 4,
+    "worker_count": 1
+  },
+  "feature_names": [
+    "account_age_months",
+    "balance_units",
+    "income_units",
+    "late_payment_days",
+    "payment_count",
+    "utilisation_percent"
+  ],
+  "package_versions": {
+    "python": "3.11.7",
+    "joblib": "1.5.2",
+    "matplotlib": "3.10.6",
+    "numpy": "2.0.0",
+    "pandas": "2.2.2",
+    "pydantic": "2.13.4",
+    "scikit-learn": "1.7.2"
+  },
+  "source_sha256": {
+    "README.md": "d801493bef7d318d88e991ebf4354162444af462c34536f3aa6123d0f3867fb7",
+    "docs/training_serving_skew.md": "d41538825b0315b586500dfcf8e05302ce2c0e32eb04fd99f07130469b570ec8",
+    "experiments/__init__.py": "41616a488443767b0f5ebbd3562c23c285062d4c5376618646411f43d1ed4a6b",
+    "experiments/requirements-training-serving-skew.txt": "f486f597759b55b2b030f594003c69dc174f6bc52cef4ff649ab4d9cb4e322be",
+    "experiments/training_serving_skew.py": "93d40989eab8527f2ba62e773733c71690c50e5a0815f567ffc04356888fca84",
+    "tests/test_training_serving_skew.py": "e7b0fbdcb98d19b1d2cd8c314cd288a0411b7d0cc17e31fe7e83d306d5dd9974"
+  },
+  "artifact_sha256": {
+    "comparison.png": "f43aa34d88c3d553edb5906f2dfbee055ff0169091776fc2d24a50420219819d",
+    "metrics.csv": "11cc6cca3ef9ad814dca581081f5508a097dd85bffbe45745310feb85595b580",
+    "pipeline_seed_11.joblib": "8748d40f9596f28a1dfa5a4580e37b1b7440304d9cd97a8016dc7c83ab34f148",
+    "pipeline_seed_29.joblib": "af847e33db377992091185d4adb81ef5f208926bff7f68bbb296a970e3147a64",
+    "pipeline_seed_47.joblib": "0bfb3a5fc0067e2659a3d0ebc62237fb6b051fcde1f445c03d53db3098d0cebf",
+    "predictions.csv": "1711440931d12fe6c892384a0e2de19996d2e563ef7229340aeb71a31c6fa01c",
+    "synthetic_data.csv": "4e3d43024e9ed62fa2d5893a0c977bc709833762ef307418e1222bbf2bfd748a"
+  },
+  "persistence_checks": {
+    "11": true,
+    "29": true,
+    "47": true
+  },
+  "split_counts": [
+    {
+      "seed": 11,
+      "train_count": 3000,
+      "train_positive_count": 1306,
+      "test_count": 1000,
+      "test_positive_count": 435
+    },
+    {
+      "seed": 29,
+      "train_count": 3000,
+      "train_positive_count": 1294,
+      "test_count": 1000,
+      "test_positive_count": 431
+    },
+    {
+      "seed": 47,
+      "train_count": 3000,
+      "train_positive_count": 1335,
+      "test_count": 1000,
+      "test_positive_count": 445
+    }
+  ],
+  "limitations": [
+    "Entirely synthetic independent rows; no EFS customer data or existing models used.",
+    "Positive raw feature ranges deliberately make scaled requests fall below raw thresholds.",
+    "Three fixed seeds are a sensitivity check, not confidence intervals or a production estimate.",
+    "Both scalers use training rows only; global fitting and feature-selection leakage are excluded.",
+    "Fixed forest, split, generator and 0.5 decision threshold; no tuning or seed search.",
+    "A consistent forest may work without scaling; consistency is the intervention, not scaling itself.",
+    "The legacy application remains unchanged; this experiment does not validate its API."
+  ]
+}

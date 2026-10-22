@@ -1,0 +1,9 @@
+# Keep hashed synthetic experiment sources and tables stable across platforms.
+README.md text eol=lf
+docs/training_serving_skew.md text eol=lf
+experiments/** text eol=lf
+results/training_serving_skew/*.csv text eol=lf
+results/training_serving_skew/*.json text eol=lf
+results/training_serving_skew/*.joblib binary
+results/training_serving_skew/*.png binary
+tests/test_training_serving_skew.py text eol=lf

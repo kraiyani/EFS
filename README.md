@@ -78,3 +78,20 @@ The best classifiers and their parameters are stored for evaluation.
 Model performance is assessed using accuracy, precision, recall, and F1-score metrics.
 A bar plot is created to visualize the performance of each classifier.
 
+
+## Synthetic training-serving skew experiment
+
+A self-contained companion experiment demonstrates what happens when a random
+forest is trained on raw values but receives scaled values at prediction time.
+It uses only generated data and leaves the legacy application unchanged.
+
+```sh
+python -m pip install -r experiments/requirements-training-serving-skew.txt
+python -m pytest tests/test_training_serving_skew.py -q
+python -m experiments.training_serving_skew
+```
+
+See [the protocol, limitations and artifacts](docs/training_serving_skew.md).
+The fixed three-seed results, per-row predictions, source/data hashes, persisted
+pipelines and chart are saved under `results/training_serving_skew/`.
+These synthetic measurements do not estimate EFS production performance.
